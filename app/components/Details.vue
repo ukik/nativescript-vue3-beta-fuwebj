@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Cards from './Cards.vue'
 import { ref, $navigateBack } from 'nativescript-vue';
 
 const items = ref(
@@ -6,6 +7,10 @@ const items = ref(
     .fill(0)
     .map((_, index) => `Item ${index + 1}`)
 );
+
+const goto = function() {
+  $navigateTo(Cards)
+}
 </script>
 
 <template>
@@ -18,7 +23,7 @@ const items = ref(
       />
 
       <ContentView row="1" class="bg-[#65adf1] rounded-t-3xl">
-        <ListView
+        <ListView @itemTap="goto"
           :items="items"
           separatorColor="transparent"
           class="bg-transparent"
