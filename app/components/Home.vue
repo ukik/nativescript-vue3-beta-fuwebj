@@ -7,6 +7,7 @@ import {
   $navigateTo,
 } from 'nativescript-vue';
 import Details from './Details.vue';
+import Cards from './Cards.vue';
 
 const counter = ref(0);
 const message = computed(() => {
@@ -46,7 +47,15 @@ onUnmounted(() => {
 
         <Button
           row="2"
-          @tap="$navigateTo(Details)"
+          @tap="
+            $navigateTo(Cards, {
+              transition: {
+                name: 'slideLeft',
+                duration: 200,
+                curve: 'easeIn',
+              },
+            })
+          "
           class="mt-4 px-4 py-2 bg-white border-2 border-blue-400 rounded-lg"
           horizontalAlignment="center"
         >

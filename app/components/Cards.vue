@@ -1,11 +1,19 @@
 <script lang="ts" setup>
 import { ref, $navigateBack } from 'nativescript-vue';
-
+import Details from './Details.vue';
 const items = ref(
   Array(10000)
     .fill(0)
     .map((_, index) => `Item ${index + 1}`)
 );
+
+function onLabelLoaded(args: EventData) {
+  // vertical align android
+  const lbl = args.object as Label;
+  if (global.isAndroid) {
+    lbl.android.setGravity(17); // vertical center
+  }
+}
 </script>
 
 <template>
@@ -17,7 +25,7 @@ const items = ref(
         class="text-center px-4 py-10 text-2xl text-gray-900 font-bold"
       />
 
-      <ContentView row="1" class="bg-[#65adf1] rounded-t-3xl">
+      <ContentView row="1" class="bg-[#65adf1] rounded-t-3xl___">
         <ListView
           :items="items"
           separatorColor="transparent"
@@ -25,38 +33,69 @@ const items = ref(
         >
           <template #default="{ item, index }">
             <GridLayout
-              columns="*, auto"
-              rows="auto,auto,167,auto,"
-              class="px-4"
+              @tap="
+                $navigateTo(Details, {
+                  transition: {
+                    name: 'slideLeft',
+                    duration: 200,
+                    curve: 'easeIn',
+                  },
+                })
+              "
+              columns="auto, *"
+              rows="auto,auto,200,50,auto"
+              class="p-2 border-b-2 border-white"
             >
               <Image
+                class="mr-2 rounded-full"
                 loadMode="async"
                 rowSpan="2"
                 col="0"
+                height="40"
+                width="40"
                 src="https://cdn.quasar.dev/img/avatar2.jpg"
-                stretch="none"
+                stretch="fill"
               />
-              <Label
-                col="1"
-                row="0"
-                :text="item"
-                class="text-3xl pt-3 text-white"
-              />
-              <Label
-                col="1"
-                row="1"
-                :text="index"
-                class="text-3md py-1 text-white"
-              />
+              <Label col="1" row="0" :text="item" class="text-lg text-white" />
+              <Label col="1" row="1" :text="index" class="text-xs text-white" />
 
               <Image
+                class="w-full mt-1 rounded-md"
                 loadMode="async"
                 colSpan="2"
-                span="2"
+                rowSpan="2"
+                row="2"
                 src="https://cdn.quasar.dev/img/mountains.jpg"
-                stretch="none"
+                stretch="fill"
               />
-              <!-- <ContentView col="1" class="w-5 h-5 rounded-full bg-white" /> -->
+
+              <Label
+                colSpan="2"
+                row="3"
+                text=""
+                backgroundColor="#000000"
+                opacity="0.5"
+                height="50"
+                class="w-full rounded-b-lg"
+              />
+              <Label
+                @loaded="onLabelLoaded"
+                verticalAlign="middle"
+                colSpan="2"
+                row="3"
+                text="Title X"
+                backgroundColor="transparent"
+                opacity="1"
+                class="text-xl text-center text-white w-full rounded-b-lg"
+              />
+
+              <Label
+                textWrap="true"
+                colSpan="2"
+                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                row="4"
+                class="w-full pt-1 text-white"
+              />
             </GridLayout>
           </template>
         </ListView>
