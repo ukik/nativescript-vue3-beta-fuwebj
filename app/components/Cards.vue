@@ -5,7 +5,7 @@ import Home from './Home.vue';
 const items = ref(
   Array(10000)
     .fill(0)
-    .map((_, index) => `Item ${index + 1}`)
+    .map((_, index) => `Item Card ${index + 1}`)
 );
 
 function onLabelLoaded(args: EventData) {
@@ -16,7 +16,7 @@ function onLabelLoaded(args: EventData) {
   }
 }
 
-function debounce(func, timeout = 300) {
+function debounce(func, timeout = 100) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
