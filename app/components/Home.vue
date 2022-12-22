@@ -28,6 +28,17 @@ onUnmounted(() => {
   console.log('unmounted');
   clearInterval(interval);
 });
+
+function gotoCard() {
+  $navigateTo(Cards);
+  // $navigateTo(Cards, {
+  //   transition: {
+  //     name: 'slideLeft',
+  //     duration: 200,
+  //     curve: 'easeIn',
+  //   },
+  // });
+}
 </script>
 
 <template>
@@ -46,15 +57,7 @@ onUnmounted(() => {
 
       <Button
         row="2"
-        @tap="
-          $navigateTo(Cards, {
-            transition: {
-              name: 'slideLeft',
-              duration: 200,
-              curve: 'easeIn',
-            },
-          })
-        "
+        @tap="gotoCard"
         class="mt-4 px-4 py-2 bg-white border-2 border-blue-400 rounded-lg"
         horizontalAlignment="center"
       >
