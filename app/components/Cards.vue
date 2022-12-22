@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { ref, $navigateBack } from 'nativescript-vue';
+import { ref, $navigateBack, $navigateTo } from 'nativescript-vue';
 import Details from './Details.vue';
+import Home from './Home.vue';
 const items = ref(
   Array(10000)
     .fill(0)
@@ -14,6 +15,28 @@ function onLabelLoaded(args: EventData) {
     lbl.android.setGravity(17); // vertical center
   }
 }
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+function saveInput() {
+  console.log('Saving data');
+  $navigateTo(Details);
+  // $navigateTo(Details, {
+  //   transition: {
+  //     name: 'slideLeft',
+  //     duration: 10,
+  //     curve: 'easeIn',
+  //   },
+  // });
+}
+const processChange = debounce(() => saveInput());
 </script>
 
 <template>
@@ -21,7 +44,16 @@ function onLabelLoaded(args: EventData) {
     <GridLayout rows="auto, *">
       <Label
         text="Go Back"
-        @tap="$navigateBack"
+        @tap="
+          $navigateTo(Home, {
+            clearHistory: true,
+            transition: {
+              name: 'slideLeft',
+              duration: 100,
+              curve: 'easeIn',
+            },
+          })
+        "
         class="text-center px-4 py-10 text-2xl text-gray-900 font-bold"
       />
 
@@ -33,15 +65,7 @@ function onLabelLoaded(args: EventData) {
         >
           <template #default="{ item, index }">
             <GridLayout
-              @tap="
-                $navigateTo(Details, {
-                  transition: {
-                    name: 'slideLeft',
-                    duration: 200,
-                    curve: 'easeIn',
-                  },
-                })
-              "
+              @tap="processChange"
               columns="auto, *"
               rows="auto,auto,200,50,auto"
               class="p-2 border-b-2 border-white"

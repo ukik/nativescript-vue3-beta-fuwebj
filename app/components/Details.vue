@@ -1,31 +1,41 @@
 <script lang="ts" setup>
+import { ref, $navigateBack, $navigateTo } from 'nativescript-vue';
 import Cards from './Cards.vue';
-import { ref, $navigateBack } from 'nativescript-vue';
+import Home from './Home.vue';
 
 const items = ref(
   Array(10000)
     .fill(0)
     .map((_, index) => `Item ${index + 1}`)
 );
-</script>
 
-<script lang="ts">
-export default {
-  methods: {
-    onItemTap(event) {
-      // console.log(event.index);
-      // console.log(event.item);
-      this.$navigateTo(Cards, {
-        clearHistory: false,
-        // transition: {
-        //   name: 'flip',
-        //   duration: 200,
-        //   curve: 'easeIn',
-        // },
-      });
-    },
-  },
-};
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+function saveInput() {
+  console.log('Saving data');
+  $navigateTo(Home, {
+    clearHistory: true,
+    // transition: {
+    //   name: 'flip',
+    //   duration: 200,
+    //   curve: 'easeIn',
+    // },
+  });
+}
+
+function getBack() {
+  console.log('getBack');
+  $navigateBack();
+}
+const processChange = debounce(() => saveInput());
+const processBack = debounce(() => getBack());
 </script>
 
 <template>
@@ -34,13 +44,13 @@ export default {
       <Label
         col="0"
         text="Go Back"
-        @tap="$navigateBack"
+        @tap="processBack"
         class="text-center px-4 py-10 text-2xl text-gray-900 font-bold"
       />
       <Label
         col="1"
-        text="Go Cards"
-        @tap="onItemTap"
+        text="Go Home"
+        @tap="processChange"
         class="text-center px-4 py-10 text-2xl text-gray-900 font-bold"
       />
 

@@ -31,43 +31,35 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Frame>
-    <Page>
-      <ActionBar>
-        <Label text="Home" class="font-bold text-lg" />
-      </ActionBar>
+  <Page>
+    <ActionBar>
+      <Label text="Home" class="font-bold text-lg" />
+    </ActionBar>
 
-      <GridLayout rows="*, auto, auto, *" class="px-4">
-        <Label
-          row="1"
-          class="text-xl align-middle text-center text-gray-500"
-          :text="message"
-          @tap="logMessage"
-        />
+    <GridLayout rows="*, auto, auto, *" class="px-4">
+      <Label
+        row="1"
+        class="text-xl align-middle text-center text-gray-500"
+        :text="message"
+        @tap="logMessage"
+      />
 
-        <Button
-          row="2"
-          @tap="
-            $navigateTo(Cards, {
-              transition: {
-                name: 'slideLeft',
-                duration: 200,
-                curve: 'easeIn',
-              },
-            })
-          "
-          class="mt-4 px-4 py-2 bg-white border-2 border-blue-400 rounded-lg"
-          horizontalAlignment="center"
-        >
-          View Details
-        </Button>
-      </GridLayout>
-    </Page>
-  </Frame>
+      <Button
+        row="2"
+        @tap="
+          $navigateTo(Cards, {
+            transition: {
+              name: 'slideLeft',
+              duration: 200,
+              curve: 'easeIn',
+            },
+          })
+        "
+        class="mt-4 px-4 py-2 bg-white border-2 border-blue-400 rounded-lg"
+        horizontalAlignment="center"
+      >
+        View Details Hore
+      </Button>
+    </GridLayout>
+  </Page>
 </template>
-
-<style>
-/* .info {
-    font-size: 20;
-  } */
-</style>
