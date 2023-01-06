@@ -37,6 +37,9 @@ function saveInput() {
   // });
 }
 const processChange = debounce(() => saveInput());
+function onItemTap(val) {
+  console.log('halloo');
+}
 </script>
 
 <template>
@@ -62,6 +65,7 @@ const processChange = debounce(() => saveInput());
           :items="items"
           separatorColor="transparent"
           class="bg-transparent"
+          @itemTap="onItemTap()"
         >
           <template #default="{ item, index }">
             <GridLayout
