@@ -65,7 +65,7 @@ function onItemTap(val) {
           :items="items"
           separatorColor="transparent"
           class="bg-transparent"
-          @itemTap="onItemTap()"
+          @itemTap="onItemTap"
         >
           <template #default="{ item, index }">
             <GridLayout
