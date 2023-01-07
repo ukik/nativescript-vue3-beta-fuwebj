@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@nativescript-community/ui-material-cardview": "^7.0.34",
     "@nativescript-community/ui-material-button": "^7.0.34",
+    "@nativescript-community/ui-material-cardview": "^7.0.34",
     "@nativescript/core": "~8.4.0",
     "nativescript-vue": "3.0.0-beta.5"
   },
